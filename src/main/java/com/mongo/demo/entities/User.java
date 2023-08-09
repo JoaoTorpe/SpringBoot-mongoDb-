@@ -1,6 +1,8 @@
 package com.mongo.demo.entities;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,6 +14,8 @@ public class User {
 	private String id;
 	private String name;
 	private String email;
+	
+	private Set<Post> posts = new HashSet<>();
 	
 	public User () {}
 	
@@ -56,6 +60,11 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
+	}
+
+
+	public Set<Post> getPosts() {
+		return posts;
 	}
 	
 	

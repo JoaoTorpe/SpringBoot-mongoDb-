@@ -2,6 +2,7 @@ package com.mongo.demo.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mongo.demo.DTO.UserDTO;
+import com.mongo.demo.entities.Post;
 import com.mongo.demo.entities.User;
 import com.mongo.demo.repositories.UserRepository;
 
@@ -48,6 +50,15 @@ public class UserController {
 		
 		repository.deleteById(id);
 		
+	}
+	
+	@GetMapping(value = "/{id}/posts")
+	public ResponseEntity<Set<Post>> getPosts(@PathVariable String id){
+		Optional<User> user = repository.findById(id);	
+		User u = user.get();
+		 
+		
+		return ResponseEntity.ok().body(u.getPosts());
 	}
 	
 	

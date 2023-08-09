@@ -1,78 +1,47 @@
 package com.mongo.demo.entities;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 @Document
-public class Post implements Serializable {
-
-	
-	private static final long serialVersionUID = 1L;
+public class Comment {
 	
 	@Id
 	private String id;
+	private String text;
 	private Date date;
-	private String title;
-	private String body;
 	
-	private	Set<Comment> comments = new HashSet<>();
 	
-	public Post () {}
-
-	public Post(String id, Date date, String title, String body) {
+	public Comment(String id, String text, Date date) {
 		super();
-		
 		this.id = id;
+		this.text = text;
 		this.date = date;
-		this.title = title;
-		this.body = body;
-		
 	}
-
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
 	public Date getDate() {
 		return date;
 	}
-
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
-	}
-	
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -81,16 +50,13 @@ public class Post implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Post other = (Post) obj;
+		Comment other = (Comment) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	public Set<Comment> getComments() {
-		return comments;
-	}
-
 	
-
+	
+	
+	
 	
 	
 }

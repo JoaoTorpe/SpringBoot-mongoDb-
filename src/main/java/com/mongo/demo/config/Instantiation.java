@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.mongo.demo.entities.Comment;
 import com.mongo.demo.entities.Post;
 import com.mongo.demo.entities.User;
+import com.mongo.demo.repositories.CommentRepository;
 import com.mongo.demo.repositories.PostRepository;
 import com.mongo.demo.repositories.UserRepository;
 
@@ -21,6 +23,8 @@ public class Instantiation implements CommandLineRunner {
 	private UserRepository userRepository;
 	@Autowired
 	private PostRepository postRepository;
+	@Autowired
+	private CommentRepository commentRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -38,6 +42,13 @@ public class Instantiation implements CommandLineRunner {
 		Post post1 = new Post(null,sdf.parse("21/03/2018"),"Partiu viajem","Vou viajar, abrços!");
 		Post post2 = new Post(null,sdf.parse("22/04/2019"), "Bom dia ", "Acordei feliz");
 		
+		Comment comm1 = new Comment(null,"boa viagem!", sdf.parse("21/03/2018"));
+		Comment comm2 = new Comment(null,"bom dia pra vc tbm!", sdf.parse("22/04/2019"));
+		
+		commentRepository.saveAll(Arrays.asList(comm1,comm2));
+		
+		post1.getComments().add(comm1);
+		post2.getComments().add(comm2);
 		postRepository.saveAll(Arrays.asList(post1,post2));
 		
 		maria.getPosts().add(post1);
